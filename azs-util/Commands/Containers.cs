@@ -6,6 +6,9 @@ namespace azs_util.Commands
     [Subcommand(typeof(ListContainers), typeof(DeleteContainers), typeof(ContainerSize))]
     public class Containers
     {
+        public void OnExecute()
+        {
 
+        }
     }
 }

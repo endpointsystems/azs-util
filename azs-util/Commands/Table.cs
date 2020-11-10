@@ -8,5 +8,9 @@ namespace azs_util.Commands
     public class Table
     {
 
+        public void OnExecute()
+        {
+
+        }
     }
 }

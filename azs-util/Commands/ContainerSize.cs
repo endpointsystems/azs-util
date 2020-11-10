@@ -65,6 +65,7 @@ namespace azs_util.Commands
             } while (token != string.Empty);
             sw.Stop();
             var blobs = list.Sum(x => x.Blocks + x.Appends + x.Pages);
+            console.WriteLine($"{list.Count} containers");
             console.WriteLine($"{list.Sum(x => x.Appends)} append objects");
             console.WriteLine($"{list.Sum(x => x.Pages)} page objects");
             console.WriteLine($"{list.Sum(x => x.Blocks)} block objects");

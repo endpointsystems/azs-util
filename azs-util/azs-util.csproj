@@ -4,6 +4,15 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>azs_util</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Azure Storage Account Utility</Title>
+        <Description>This utility application helps you do things with containers and table storage that az simply doesn't support, such as renaming Partition Keys or listing all containers by name. We'll add additional functionality as requested, so stay tuned!</Description>
+        <Copyright>2020 Endpoint Systems. All rights reserved.</Copyright>
+        <PackageLicenseUrl>https://github.com/endpointsystems/azs-utils/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageIconUrl>https://res.cloudinary.com/endpoint-systems/image/upload/v1580768327/ES_ico_nkoihx.png</PackageIconUrl>
+        <RepositoryUrl>https://github.com/endpointsystems/azs-utils</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
+        <PackageTags>.NET Tool, Azure, Azure Storage, Azure Blob Storage, Azure Table Storage</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

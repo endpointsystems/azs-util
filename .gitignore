@@ -25,7 +25,7 @@ riderModule.iml
 **/.idea/**/*.iml
 **/.idea/**/contentModel.xml
 **/.idea/**/modules.xml
-
+publish/
 *.suo
 *.user
 .vs/
