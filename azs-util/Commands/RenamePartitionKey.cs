@@ -1,13 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using ats_util.Commands;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Azure.Cosmos.Table;
+
 // ReSharper disable ExpressionIsAlwaysNull
 
-namespace ats_util.Commands
+namespace azs_util.Commands
 {
     [Command(Name = "rename-pk",FullName = "rename-partition-key",Description = "Rename a PartitionKey to something else.")]
     public class RenamePartitionKey: BaseCommand
@@ -24,11 +24,7 @@ namespace ats_util.Commands
 
         public async Task OnExecute(IConsole console)
         {
-            if (string.IsNullOrEmpty(ConnectionString))
-            {
-                ConnectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
-                if (string.IsNullOrEmpty(ConnectionString)) throw new ArgumentException(nameof(ConnectionString));
-            }
+            CheckConnection();
             var sw = new Stopwatch();
             sw.Start();
             try

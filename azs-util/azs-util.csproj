@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>azs_util</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>Azure Storage Account Utility</Title>
@@ -12,11 +11,20 @@
         <PackageIconUrl>https://res.cloudinary.com/endpoint-systems/image/upload/v1580768327/ES_ico_nkoihx.png</PackageIconUrl>
         <RepositoryUrl>https://github.com/endpointsystems/azs-utils</RepositoryUrl>
         <RepositoryType>GitHub</RepositoryType>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>azs-util</ToolCommandName>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
         <PackageTags>.NET Tool, Azure, Azure Storage, Azure Blob Storage, Azure Table Storage</PackageTags>
+        <PackageProjectUrl>https://endpointsystems.com/blog/introducing-azs-util</PackageProjectUrl>
+        <PackageVersion>1.0.2</PackageVersion>
+        <PackageReleaseNotes>- added list-pk to table command, which lists all unique PartitionKeys in a table.
+- Added list-rk to table commands, listing all RowKeys for a given PartitionKey.</PackageReleaseNotes>
+        <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Azure.Storage.Blobs" Version="12.6.0" />
+      <PackageReference Include="CsvHelper" Version="19.0.0" />
       <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
       <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
     </ItemGroup>

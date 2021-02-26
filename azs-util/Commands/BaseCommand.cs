@@ -12,5 +12,12 @@ namespace ats_util.Commands
 
         [Option(ShortName = "t",LongName = "table", Description = "Table name")]
         public string TableName { get; set; }
+
+        protected void CheckConnection()
+        {
+            if (!string.IsNullOrEmpty(ConnectionString)) return;
+            ConnectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
+            if (string.IsNullOrEmpty(ConnectionString)) throw new ArgumentException(nameof(ConnectionString));
+        }
     }
 }

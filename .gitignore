@@ -33,7 +33,7 @@ publish/
 [Oo]bj/
 _UpgradeReport_Files/
 [Pp]ackages/
-
+*.nupkg
 Thumbs.db
 Desktop.ini
 .DS_Store

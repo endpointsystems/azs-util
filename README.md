@@ -38,6 +38,8 @@ Options:
 
 Commands:
   rename-pk     Rename a PartitionKey to something else.
+  list-pk       List all unique PartitionKeys.
+  list-rk       List all RowKeys for a given PartitionKey.
 
 Run 'table [command] -?|-h|--help' for more information about a command.
 
