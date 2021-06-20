@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ats_util.Commands;
+using Azure.Data.Tables;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Azure.Cosmos.Table;
 // ReSharper disable ExpressionIsAlwaysNull
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 // ReSharper disable LoopVariableIsNeverChangedInsideLoop
@@ -29,20 +29,23 @@ namespace azs_util.Commands
 
             try
             {
-                var csa = CloudStorageAccount.Parse(ConnectionString);
-                var client = csa.CreateCloudTableClient();
-                var table  = client.GetTableReference(TableName);
+                var client = new TableServiceClient(ConnectionString);
+                var table  = client.GetTableClient(TableName);
 
-                TableContinuationToken token = null;
+                var token = string.Empty;
                 do
                 {
-                    var items = await table.ExecuteQuerySegmentedAsync(
-                        new TableQuery<DynamicTableEntity>(), token);
-                    token = items.ContinuationToken;
-                    foreach (var item in items)
+                    var items = table.QueryAsync<TableEntity>();
+
+                    await foreach(var page in items.AsPages(token))
                     {
-                        rows++;
-                        if (!hash.Contains(item.PartitionKey)) hash.Add(item.PartitionKey);
+                        foreach (var pageValue in page.Values)
+                        {
+                            rows++;
+                            if (!hash.Contains(pageValue.PartitionKey)) hash.Add(pageValue.PartitionKey);
+                        }
+
+                        token = page.ContinuationToken;
                     }
                 } while (token != null);
 

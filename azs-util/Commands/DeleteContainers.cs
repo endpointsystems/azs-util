@@ -1,12 +1,10 @@
 using System;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using ats_util.Commands;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Azure.Cosmos.Table;
 
 namespace azs_util.Commands
 {
@@ -30,9 +28,6 @@ namespace azs_util.Commands
                 if (string.IsNullOrEmpty(ConnectionString)) throw new ArgumentException(nameof(ConnectionString));
             }
             if (!All && string.IsNullOrEmpty(ContainerName)) throw new ArgumentException("need the container name");
-
-            var csa = CloudStorageAccount.Parse(ConnectionString);
-            var account = new CloudStorageAccount(csa.Credentials,csa.TableStorageUri);
 
             var bc = new BlobServiceClient(ConnectionString);
             var token = string.Empty;

@@ -6,14 +6,12 @@ using ats_util.Commands;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Azure.Cosmos.Table;
 
 namespace azs_util.Commands
 {
     [Command(Name = "list", Description = "List blob storage container names.")]
     public class ListContainers: BaseCommand
     {
-        private CloudStorageAccount account;
 
         [Option(ShortName = "d", LongName = "deleted", Description = "show deleted containers (marked with asterisk)")]
         public bool ListDeleted { get; set; }
@@ -31,8 +29,6 @@ namespace azs_util.Commands
                 if (string.IsNullOrEmpty(ConnectionString)) throw new ArgumentException(nameof(ConnectionString));
             }
 
-            var csa = CloudStorageAccount.Parse(ConnectionString);
-            account = new CloudStorageAccount(csa.Credentials,csa.TableStorageUri);
 
             var bc = new BlobServiceClient(ConnectionString);
             var token = string.Empty;

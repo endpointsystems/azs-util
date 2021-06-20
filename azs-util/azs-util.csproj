@@ -19,14 +19,14 @@
         <PackageVersion>1.0.2</PackageVersion>
         <PackageReleaseNotes>- added list-pk to table command, which lists all unique PartitionKeys in a table.
 - Added list-rk to table commands, listing all RowKeys for a given PartitionKey.</PackageReleaseNotes>
-        <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
+        <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Azure.Storage.Blobs" Version="12.6.0" />
-      <PackageReference Include="CsvHelper" Version="19.0.0" />
-      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
-      <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
+      <PackageReference Include="Azure.Data.Tables" Version="12.0.1" />
+      <PackageReference Include="Azure.Storage.Blobs" Version="12.9.0" />
+      <PackageReference Include="CsvHelper" Version="27.1.0" />
+      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
     </ItemGroup>
 
 </Project>

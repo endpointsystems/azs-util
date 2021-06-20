@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +7,6 @@ using ats_util.Commands;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Azure.Cosmos.Table;
-using Microsoft.VisualBasic;
 
 namespace azs_util.Commands
 {
@@ -32,8 +29,6 @@ namespace azs_util.Commands
                 if (string.IsNullOrEmpty(ConnectionString)) throw new ArgumentException(nameof(ConnectionString));
             }
 
-            var csa = CloudStorageAccount.Parse(ConnectionString);
-            var account = new CloudStorageAccount(csa.Credentials,csa.TableStorageUri);
             var bc = new BlobServiceClient(ConnectionString);
             var list = new List<ContainerInfo>();
             if (!All)
@@ -90,7 +85,7 @@ namespace azs_util.Commands
             long blocks = 0;
             long append = 0;
             long sizeBytes = 0;
-            string containerToken = string.Empty;
+            var containerToken = string.Empty;
 
             do
             {
@@ -136,14 +131,14 @@ namespace azs_util.Commands
 
     public class ContainerInfo
     {
-        public string Name { get; set; }
-        public long Pages { get; set; }
-        public long Appends { get; set; }
-        public long Blocks { get; set; }
+        public string Name { get; init; }
+        public long Pages { get; init; }
+        public long Appends { get; init; }
+        public long Blocks { get; init; }
 
-        public double Bytes { get; set; }
-        public double Mb { get; set; }
-        public double Gb { get; set; }
-        public double Tb { get; set; }
+        public double Bytes { get; init; }
+        public double Mb { get; init; }
+        public double Gb { get; init; }
+        public double Tb { get; init; }
     }
 }

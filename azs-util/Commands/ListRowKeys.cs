@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ats_util.Commands;
+using Azure.Data.Tables;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Azure.Cosmos.Table;
 
 namespace azs_util.Commands
 {
@@ -21,23 +21,23 @@ namespace azs_util.Commands
             var sw = Stopwatch.StartNew();
             try
             {
-                var csa = CloudStorageAccount.Parse(ConnectionString);
-                var client = csa.CreateCloudTableClient();
-                var table = client.GetTableReference(TableName);
-                var q = new TableQuery<TableEntity> {FilterString = $"PartitionKey eq '{PartitionKey}'"};
-                int count = 0;
+                var client = new TableServiceClient(ConnectionString);
+                var table  = client.GetTableClient(TableName);
+                var items = table.QueryAsync<TableEntity>($"PartitionKey eq '{PartitionKey}'");
+                var count = 0;
 
-                TableContinuationToken token = null;
+                var token = string.Empty;
                 do
                 {
-                    var items = await table.ExecuteQuerySegmentedAsync(q, token);
-                    token = items.ContinuationToken;
-                    foreach (var item in items)
+                    await foreach (var page in items.AsPages(token))
                     {
-                        count++;
-                        list.Add(item.RowKey);
+                        foreach (var pageValue in page.Values)
+                        {
+                            count++;
+                            list.Add(pageValue.RowKey);
+                        }
+                        token = page.ContinuationToken;
                     }
-
                 } while (token != null);
 
                 sw.Stop();

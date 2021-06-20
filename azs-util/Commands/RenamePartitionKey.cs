@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ats_util.Commands;
+using Azure.Data.Tables;
 using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Azure.Cosmos.Table;
 
 // ReSharper disable ExpressionIsAlwaysNull
 
@@ -29,42 +30,44 @@ namespace azs_util.Commands
             sw.Start();
             try
             {
-                var csa = CloudStorageAccount.Parse(ConnectionString);
-                var client = csa.CreateCloudTableClient();
-                var table  = client.GetTableReference(TableName);
-                var q = new TableQuery<TableEntity> {FilterString = $"PartitionKey eq '{OldPartitionKey}'"};
+                var client = new TableServiceClient(ConnectionString);
+                var table  = client.GetTableClient(TableName);
+                var items = table.QueryAsync<TableEntity> ($"PartitionKey eq '{OldPartitionKey}'");
                 int count = 0;
 
-                TableContinuationToken token = null;
+                string token = null;
                 do
                 {
-                    var items = await table.ExecuteQuerySegmentedAsync(q, token);
+                    var oldBatch = new List<TableTransactionAction>();
+                    var newBatch = new List<TableTransactionAction>();
 
-                    var oldBatch = new TableBatchOperation();
-                    var newBatch = new TableBatchOperation();
-                    var context = new OperationContext();
-                    foreach (var entity in items)
+                    await foreach (var page in items.AsPages(token))
                     {
-                        var dte = new DynamicTableEntity(NewPartitionKey, entity.RowKey)
+                        foreach (var pageValue in page.Values)
                         {
-                            Properties = entity.WriteEntity(context)
-                        };
-                        oldBatch.Add(TableOperation.Delete(entity));
-                        newBatch.Add(TableOperation.InsertOrMerge(dte));
-                        count++;
-                        if (oldBatch.Count != BatchSize) continue;
-                        await table.ExecuteBatchAsync(oldBatch);
-                        await table.ExecuteBatchAsync(newBatch);
+                            oldBatch.Add(new TableTransactionAction(TableTransactionActionType.Delete,pageValue));
+                            var newEntity = new TableEntity(NewPartitionKey, pageValue.RowKey);
+
+                            foreach (var key in pageValue.Keys)
+                            {
+                                if (key == "PartitionKey" || key == "RowKey") continue;
+                                newEntity.Add(key,pageValue[key]);
+                            }
+                            newBatch.Add(new TableTransactionAction(TableTransactionActionType.Add,newEntity));
+                            count++;
+                            if (oldBatch.Count != BatchSize) continue;
+                            await table.SubmitTransactionAsync(oldBatch);
+                            await table.SubmitTransactionAsync(newBatch);
+                            oldBatch.Clear();
+                            newBatch.Clear();
+                        }
+                        //catch the leftover batch (anything less than the batch size)
+                        if (oldBatch.Count > 0) await table.SubmitTransactionAsync(oldBatch);
+                        if (newBatch.Count > 0) await table.SubmitTransactionAsync(newBatch);
                         oldBatch.Clear();
                         newBatch.Clear();
+                        token = page.ContinuationToken;
                     }
-
-                    if (oldBatch.Count <= 0) continue;
-                    await table.ExecuteBatchAsync(oldBatch);
-                    await table.ExecuteBatchAsync(newBatch);
-                    oldBatch.Clear();
-                    newBatch.Clear();
-
                     // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                     // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
                 } while (token != null);
@@ -73,7 +76,6 @@ namespace azs_util.Commands
 
                 console.WriteLine(
                     $"Renamed Partition Key for {count} records from '{OldPartitionKey}' to {NewPartitionKey}' in {sw.Elapsed.TotalSeconds} seconds.");
-
 
             }
             catch (Exception e)
