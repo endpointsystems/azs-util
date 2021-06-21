@@ -16,9 +16,8 @@
         <PackageOutputPath>./nupkg</PackageOutputPath>
         <PackageTags>.NET Tool, Azure, Azure Storage, Azure Blob Storage, Azure Table Storage</PackageTags>
         <PackageProjectUrl>https://endpointsystems.com/blog/introducing-azs-util</PackageProjectUrl>
-        <PackageVersion>1.0.2</PackageVersion>
-        <PackageReleaseNotes>- added list-pk to table command, which lists all unique PartitionKeys in a table.
-- Added list-rk to table commands, listing all RowKeys for a given PartitionKey.</PackageReleaseNotes>
+        <PackageVersion>1.0.3</PackageVersion>
+        <PackageReleaseNotes>Upgrade to use Azure.Data.Tables</PackageReleaseNotes>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
