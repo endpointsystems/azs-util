@@ -46,4 +46,3 @@ Commands:
 Run 'table [command] -?|-h|--help' for more information about a command.
 
 ```
-The `rename-pk` command allows you to rename a `PartitionKey` in a table. 
