@@ -21,7 +21,6 @@
         <PackageProjectUrl>https://endpointsystems.com/blog/introducing-azs-util</PackageProjectUrl>
         <PackageVersion>6.0.4</PackageVersion>
         <PackageReleaseNotes>Upgrade to .NET 6, add CopyColumn and DeleteColumn table commands</PackageReleaseNotes>
-        <RepositoryType>git</RepositoryType>
         <RepositoryBranch>master</RepositoryBranch>
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>10</LangVersion>
