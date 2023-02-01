@@ -7,25 +7,44 @@
         <Title>Azure Storage Account Utility</Title>
         <Description>This utility application helps you do things with containers and table storage that az simply doesn't support, such as renaming Partition Keys or listing all containers by name. We'll add additional functionality as requested, so stay tuned!</Description>
         <Copyright>2020 Endpoint Systems. All rights reserved.</Copyright>
-        <PackageLicenseUrl>https://github.com/endpointsystems/azs-utils/blob/main/LICENSE</PackageLicenseUrl>
-        <PackageIconUrl>https://res.cloudinary.com/endpoint-systems/image/upload/v1580768327/ES_ico_nkoihx.png</PackageIconUrl>
-        <RepositoryUrl>https://github.com/endpointsystems/azs-utils</RepositoryUrl>
+        <license>MIT</license>
+        <RepositoryUrl>https://github.com/endpointsystems/azs-util</RepositoryUrl>
+        <Copyright>2007-2023 Endpoint Systems. All rights reserved.</Copyright>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>GitHub</RepositoryType>
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>azs-util</ToolCommandName>
         <PackageOutputPath>./nupkg</PackageOutputPath>
+        <PackageType>DotnetCliTool</PackageType>
         <PackageTags>.NET Tool, Azure, Azure Storage, Azure Blob Storage, Azure Table Storage</PackageTags>
         <PackageProjectUrl>https://endpointsystems.com/blog/introducing-azs-util</PackageProjectUrl>
-        <PackageVersion>1.0.3</PackageVersion>
-        <PackageReleaseNotes>Upgrade to use Azure.Data.Tables</PackageReleaseNotes>
-        <TargetFramework>net5.0</TargetFramework>
+        <PackageVersion>6.0.4</PackageVersion>
+        <PackageReleaseNotes>Upgrade to .NET 6, add CopyColumn and DeleteColumn table commands</PackageReleaseNotes>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryBranch>master</RepositoryBranch>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Azure.Data.Tables" Version="12.0.1" />
-      <PackageReference Include="Azure.Storage.Blobs" Version="12.9.0" />
-      <PackageReference Include="CsvHelper" Version="27.1.0" />
-      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
+      <PackageReference Include="Azure.Data.Tables" Version="12.7.1" />
+      <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
+      <PackageReference Include="CsvHelper" Version="30.0.1" />
+      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="icon.png">
+            <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>/</PackagePath>
+        </None>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+        
+    <ItemGroup>
+      <Folder Include="Commands" />
     </ItemGroup>
 
 </Project>

@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using ats_util.Commands;
 using Azure.Data.Tables;
 using McMaster.Extensions.CommandLineUtils;
 
 // ReSharper disable ExpressionIsAlwaysNull
 
-namespace azs_util.Commands
+namespace azs_util.Table
 {
     [Command(Name = "rename-pk",FullName = "rename-partition-key",Description = "Rename a PartitionKey to something else.")]
     public class RenamePartitionKey: BaseCommand
@@ -84,5 +83,7 @@ namespace azs_util.Commands
                 throw;
             }
         }
+
+        public RenamePartitionKey(IConsole iConsole) : base(iConsole) { }
     }
 }
