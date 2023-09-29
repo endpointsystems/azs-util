@@ -3,7 +3,9 @@
 `azs-util` is a utility for Azure storage accounts that goes in an extra step beyond what `az-cli` or `azcopy` can do. Learn more at https://endpointsystems.com/blog/introducing-azs-util. 
 
 ## Getting Started
-Set the `AZURE_STORAGE_CONNECTION_STRING` environment variable to the connection string of the storage account you wish to work on.
+Set the `AZURE_STORAGE_CONNECTION_STRING` environment variable to the connection string of the storage account you wish to work on, or use the `cs` option to pass it in on the command line.
+
+For commands where another storage account is involved, set the `AZURE_STORAGE_CONNECTION_DEST` environment variable to the destination storage account you wish to target, or use the `ds` option to pass it in on the command line.
 
 ## Container Commands
 
@@ -38,6 +40,7 @@ Options:
 
 Commands:
   cpc           Copy one column to another (new) column. Similar to renaming except the original exists.
+  cpt           Copy a table from one storage account to another.
   dc            Delete a column in your table.
   rename-pk     Rename a PartitionKey to something else.
   list-pk       List all unique PartitionKeys.
