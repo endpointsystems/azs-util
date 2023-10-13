@@ -19,8 +19,8 @@
         <PackageType>DotnetCliTool</PackageType>
         <PackageTags>.NET Tool, Azure, Azure Storage, Azure Blob Storage, Azure Table Storage</PackageTags>
         <PackageProjectUrl>https://endpointsystems.com/blog/introducing-azs-util</PackageProjectUrl>
-        <PackageVersion>6.0.5</PackageVersion>
-        <PackageReleaseNotes>Add CopyTable table command</PackageReleaseNotes>
+        <PackageVersion>6.0.6</PackageVersion>
+        <PackageReleaseNotes>Add destination table to CopyTable table command</PackageReleaseNotes>
         <RepositoryBranch>master</RepositoryBranch>
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>10</LangVersion>
@@ -31,7 +31,6 @@
       <PackageReference Include="CsvHelper" Version="30.0.1" />
       <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
     </ItemGroup>
-
     <ItemGroup>
         <None Update="icon.png">
             <Pack>true</Pack>
@@ -40,9 +39,4 @@
         </None>
         <None Include="..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Commands" />
-    </ItemGroup>
-
 </Project>

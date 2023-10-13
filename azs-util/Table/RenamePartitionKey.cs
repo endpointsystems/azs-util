@@ -18,8 +18,10 @@ namespace azs_util.Table
         [Option(ShortName = "new", LongName = "new-partition", Description = "The new partition key")]
         public string NewPartitionKey { get; set; }
 
+        [Option(ShortName = "t",LongName = "table", Description = "Table name")]
+        public string TableName { get; set; }
+
         [Option(ShortName = "b", LongName = "batch", Description = "Batch size")]
-        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Global
         public int BatchSize { get; set; } = 100;
 
         public async Task OnExecute(IConsole console)

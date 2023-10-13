@@ -14,6 +14,12 @@ internal class Program
         Console.WriteLine("https://endpointsystems.com");
         Console.WriteLine("Find this tool on GitHub at https://github.com/endpointsystems/azs-util");
         Console.WriteLine("---------------------");
+        var app = new CommandLineApplication()
+        {
+            Name = "azs-util",
+            Description = "an Azure storage account utility for blob and table storage"
+        };
+        app.HelpOption(inherited: true);
         await CommandLineApplication.ExecuteAsync<AzsUtil>(args);
     }
 }

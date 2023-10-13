@@ -13,10 +13,12 @@ public class CopyColumn: BaseCommand
     [Required]
     [Option(ShortName = "s",LongName = "source", Description = "the source column name")]
     public string SourceColumn { get; set; }
-    
+
     [Required]
     [Option(ShortName = "d",LongName = "dest", Description = "the destination column name")]
     public string DestColumn { get; set; }
+    [Option(ShortName = "t",LongName = "table", Description = "Table name")]
+    public string TableName { get; set; }
 
 
     public async Task OnExecuteAsync()

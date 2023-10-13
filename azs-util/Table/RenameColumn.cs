@@ -17,7 +17,10 @@ public class RenameColumn: BaseCommand
     [Required]
     [Option(ShortName = "n", LongName = "newName", Description = "the new column name")]
     public string NewName { get; set; }
-    
+
+    [Option(ShortName = "t",LongName = "table", Description = "Table name")]
+    public string TableName { get; set; }
+
     public async Task OnExecuteAsync()
     {
         var client = new TableServiceClient(ConnectionString);

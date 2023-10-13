@@ -13,6 +13,9 @@ public class ListRowKeys : BaseCommand
     [Option(LongName = "partition-key", ShortName = "p", Description = "The PartitionKey to query.")]
     public string PartitionKey { get; set; }
 
+    [Option(ShortName = "t",LongName = "table", Description = "Table name")]
+    public string TableName { get; set; }
+
     public async Task OnExecute(IConsole console)
     {
         var list = new List<string>();

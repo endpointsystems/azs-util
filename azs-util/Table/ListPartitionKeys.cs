@@ -14,6 +14,9 @@ namespace azs_util.Table;
 [Command(Name="list-pk",FullName = "list-partition-keys",Description = "list all PartitionKeys in a table")]
 public class ListPartitionKeys: BaseCommand
 {
+    [Option(ShortName = "t",LongName = "table", Description = "Table name")]
+    public string TableName { get; set; }
+
     public async Task OnExecute(IConsole console)
     {
         long rows = 0;

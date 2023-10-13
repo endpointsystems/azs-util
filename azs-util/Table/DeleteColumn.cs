@@ -13,7 +13,9 @@ public class DeleteColumn: BaseCommand
     [Required]
     [Option(ShortName = "c",LongName = "column", Description = "the column name")]
     public string ColumnName { get; set; }
-    
+    [Option(ShortName = "t",LongName = "table", Description = "Table name")]
+    public string TableName { get; set; }
+
     public async Task OnExecuteAsync()
     {
         var client = new TableServiceClient(ConnectionString);
