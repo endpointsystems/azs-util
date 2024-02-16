@@ -1,5 +1,3 @@
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Containers;
 
 [Command(Name = "containers", Description = "Container storage commands")]

@@ -1,5 +1,3 @@
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util;
 
 [Command(Name = "azs-util", Description = "an Azure storage account utility for blob and table storage")]
@@ -10,9 +8,6 @@ public class AzsUtil
 
     public void OnExecute(CommandLineApplication app)
     {
-        if (app.Arguments.Count == 0)
-        {
-            app.ShowHelp();
-        }
+        app.ShowHelp();
     }
 }

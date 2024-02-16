@@ -1,10 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Azure.Data.Tables;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Table;
 
 [Command(Name = "cpc", FullName = "copyColumn", Description = "copy one column into a new column")]

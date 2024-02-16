@@ -42,6 +42,7 @@ Commands:
   cpc           Copy one column to another (new) column. Similar to renaming except the original exists.
   cpt           Copy a table from one storage account to another.
   dc            Delete a column in your table.
+  dt            Delete a table.
   rename-pk     Rename a PartitionKey to something else.
   list-pk       List all unique PartitionKeys.
   list-rk       List all RowKeys for a given PartitionKey.

@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Containers;
 
 [Command(Name = "size", Description = "get container size")]

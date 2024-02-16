@@ -1,10 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Containers;
 
 [Command(Name = "delete", Description = "deletes containers from the storage account.")]

@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Azure.Data.Tables;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Table;
 
 [Command(Name = "list-rk", FullName = "list-row-keys", Description = "list RowKey items for a given PartitionKey")]

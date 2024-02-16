@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Azure.Data.Tables;
-using McMaster.Extensions.CommandLineUtils;
-
 // ReSharper disable ExpressionIsAlwaysNull
 
 namespace azs_util.Table

@@ -1,6 +1,3 @@
-using System;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util;
 
 public abstract class BaseCommand

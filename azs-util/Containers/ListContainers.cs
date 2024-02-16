@@ -1,11 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Containers;
 
 [Command(Name = "list", Description = "List blob storage container names.")]

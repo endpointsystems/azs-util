@@ -1,10 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Azure.Data.Tables;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Table;
 
 [Command(Name = "rc", FullName = "renameColumn", Description = "rename a column in your table")]

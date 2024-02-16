@@ -1,9 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using McMaster.Extensions.CommandLineUtils;
-
-namespace azs_util;
-
+﻿namespace azs_util;
 internal class Program
 {
     private static async Task Main(string[] args)

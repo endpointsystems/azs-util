@@ -1,10 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Azure.Data.Tables;
-using McMaster.Extensions.CommandLineUtils;
-
 namespace azs_util.Table;
 
 [Command(Name = "dc", FullName = "deleteColumn", Description = "delete a column in your table")]
@@ -16,6 +9,10 @@ public class DeleteColumn: BaseCommand
     [Option(ShortName = "t",LongName = "table", Description = "Table name")]
     public string TableName { get; set; }
 
+    /// <summary>
+    /// Deletes a column in the specified table.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task OnExecuteAsync()
     {
         var client = new TableServiceClient(ConnectionString);

@@ -1,0 +1,11 @@
+global using System;
+global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using System.ComponentModel.DataAnnotations;
+global using System.Diagnostics;
+global using Azure.Data.Tables;
+global using McMaster.Extensions.CommandLineUtils;
+global using System.Linq;
+global using Azure.Storage.Blobs;
+global using Azure.Storage.Blobs.Models;
+global using System.Text;
