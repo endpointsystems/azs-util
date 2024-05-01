@@ -18,7 +18,7 @@
         <PackageType>DotnetCliTool</PackageType>
         <PackageTags>.NET Tool, Azure, Azure Storage, Azure Blob Storage, Azure Table Storage</PackageTags>
         <PackageProjectUrl>https://endpointsystems.com/blog/introducing-azs-util</PackageProjectUrl>
-        <PackageVersion>8.0.1</PackageVersion>
+        <PackageVersion>8.0.2</PackageVersion>
         <PackageReleaseNotes>exit gracefully after a bad command..</PackageReleaseNotes>
         <RepositoryBranch>master</RepositoryBranch>
         <LangVersion>10</LangVersion>
@@ -27,8 +27,8 @@
     <ItemGroup>
       <PackageReference Include="Azure.Data.Tables" Version="12.8.3" />
       <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
-      <PackageReference Include="CsvHelper" Version="31.0.0" />
-      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.0" />
+      <PackageReference Include="CsvHelper" Version="32.0.1" />
+      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.1" />
     </ItemGroup>
     <ItemGroup>
         <None Include=".\icon.png" Pack="true" PackagePath="\" />
