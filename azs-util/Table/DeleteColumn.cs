@@ -6,6 +6,7 @@ public class DeleteColumn: BaseCommand
     [Required]
     [Option(ShortName = "c",LongName = "column", Description = "the column name")]
     public string ColumnName { get; set; }
+    [Required]
     [Option(ShortName = "t",LongName = "table", Description = "Table name")]
     public string TableName { get; set; }
 
@@ -22,36 +23,65 @@ public class DeleteColumn: BaseCommand
 
         var sw = Stopwatch.StartNew();
         var token = string.Empty;
+        var oldBatch = new List<TableTransactionAction>();
+        var newBatch = new List<TableTransactionAction>();
+        var currentPartitionKey = string.Empty;
+
         do
         {
-            var oldBatch = new List<TableTransactionAction>();
-            var newBatch = new List<TableTransactionAction>();
-
             await foreach (var page in items.AsPages(token))
             {
                 foreach (var entity in page.Values)
                 {
+                    // Check if partition key changed
+                    if (!string.IsNullOrEmpty(currentPartitionKey) &&
+                        currentPartitionKey != entity.PartitionKey)
+                    {
+                        // Submit current batches before starting new partition
+                        if (oldBatch.Count > 0)
+                        {
+                            await table.SubmitTransactionAsync(oldBatch);
+                            await table.SubmitTransactionAsync(newBatch);
+                            oldBatch.Clear();
+                            newBatch.Clear();
+                        }
+                    }
+
+                    currentPartitionKey = entity.PartitionKey;
                     count++;
+
                     var newEntity = new TableEntity(entity.PartitionKey, entity.RowKey);
                     foreach (var pair in entity)
                     {
                         if (pair.Key == ColumnName) continue;
                         newEntity.Add(pair.Key,pair.Value);
                     }
+
                     oldBatch.Add(new TableTransactionAction(TableTransactionActionType.Delete,entity));
                     newBatch.Add(new TableTransactionAction(TableTransactionActionType.Add,newEntity));
 
-                    if (newBatch.Count != 100) continue;
-                    await table.SubmitTransactionAsync(oldBatch);
-                    await table.SubmitTransactionAsync(newBatch);
-                    newBatch.Clear();
+                    // Submit when batch reaches 100 (Azure limit)
+                    if (newBatch.Count >= 100)
+                    {
+                        await table.SubmitTransactionAsync(oldBatch);
+                        await table.SubmitTransactionAsync(newBatch);
+                        oldBatch.Clear();
+                        newBatch.Clear();
+                    }
                 }
                 token = page.ContinuationToken;
             }
-            await table.SubmitTransactionAsync(oldBatch);
-            await table.SubmitTransactionAsync(newBatch);
-            newBatch.Clear();
+
+            // Submit any remaining items
+            if (oldBatch.Count > 0)
+            {
+                await table.SubmitTransactionAsync(oldBatch);
+                await table.SubmitTransactionAsync(newBatch);
+                oldBatch.Clear();
+                newBatch.Clear();
+            }
         } while (token != null);
+
         sw.Stop();
         write($"{TableName}: deleted column {ColumnName} with {count} values in {sw.Elapsed.TotalSeconds} seconds");
         write("Please note: if you still see this column in Azure Storage Explorer full of null values, it's due to ASE caching the schema. ");

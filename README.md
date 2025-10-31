@@ -43,6 +43,7 @@ Commands:
   cpt           Copy a table from one storage account to another.
   dc            Delete a column in your table.
   dt            Delete a table.
+  et            Empty a table >= Timestamp (simple date) or use your own custom OData where clause
   rename-pk     Rename a PartitionKey to something else.
   list-pk       List all unique PartitionKeys.
   list-rk       List all RowKeys for a given PartitionKey.
